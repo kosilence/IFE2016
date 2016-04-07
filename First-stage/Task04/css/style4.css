@@ -1,0 +1,72 @@
+/* css文件初始化 */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, 
+form, fieldset, input, textarea, p, blockquote, th, td {
+        margin:0;
+        padding:0;
+}
+table {
+        border-collapse:collapse;
+        border-spacing:0;
+}
+fieldset, img {
+        border:0;
+}
+address, caption, cite, code, dfn, em, strong, th, var {
+        font-style:normal;
+        font-weight:normal;
+}
+ol, ul {
+        list-style:none;
+}
+caption, th {
+        text-align:left;
+}
+/* h1, h2, h3, h4, h5, h6 {
+        font-size:100%;
+        font-weight:normal;
+}
+q:before, q:after {
+        content:'';
+}
+abbr, acronym {
+        border:0;
+} */
+/* 本任务相关CSS */
+body{
+        font-family:"微软雅黑";
+}
+.wrap{
+        width:1200px;
+        height:1000px;
+        background-color:blue;
+        margin:0 auto;
+
+}
+.point{
+        position:fixed;
+        top:50%;
+        left:50%;
+        margin:-100px 0 0 -200px;
+        width:400px;
+        height:200px;
+        background-color:#ccc;
+        overflow:hidden;
+}
+.part1{
+        position:absolute;
+        top:0;
+        left:0;
+        width:45px;
+        height:45px;
+        background-color:yellow;
+        
+        border:5px solid yellow;
+        border-radius:0 0 50px 0;
+}
+.part2{
+        position:absolute;
+        top:145px;
+        left:345px;
+        border:50px solid yellow;
+        border-radius:50px 0 0 0;
+}
