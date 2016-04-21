@@ -1,0 +1,43 @@
+body, div, ul, li, input, p {
+        margin:0;
+        padding:0;
+}
+ol, ul {
+        list-style:none;
+}
+#my_form{
+        width:600px;
+        padding-top:30px;
+        padding-bottom:30px;
+        padding-left:100px;
+        margin:30px auto;
+        border:2px solid #ccc;
+        border-radius:10px;
+}
+#my_dis{
+        width:700px;
+        height:400px;
+        margin:10px auto;
+        border:2px solid #95cceb;
+        border-radius:10px;
+}
+#my_dis h3{
+        width:150px;
+        margin:10px auto;
+        color:#369cd6;
+        text-align:center;
+        font-family:"微软雅黑";
+}
+#my_array{
+        margin:10px auto;
+        height:340px;
+        padding-top:10px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+}
+#my_array li{
+        float:left;
+        width:8px;
+        margin:5px 3px;
+}

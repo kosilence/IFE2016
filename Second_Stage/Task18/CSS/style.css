@@ -1,0 +1,21 @@
+body, div, ul, li, input, p {
+        margin:0;
+        padding:0;
+}
+ol, ul {
+        list-style:none;
+}
+form{
+        margin:10px;
+}
+#my_array{
+        margin:10px;
+}
+#my_array li{
+        float:left;
+        padding:10px 10px;
+        margin:5px 10px;
+        background-color:#f41e3c;
+        font-size:15px;
+        font-weight:bold;
+}
