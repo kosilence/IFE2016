@@ -122,11 +122,10 @@ img{
 .mod-content .box-p{
         width:70%;
         height:75px;
-        display:flex;
-        justify-content:space-around;
+/*         display:flex;
+        justify-content:space-around; */
 }
 .box-p span{
-        
         align-items:center;
         width:45%;
         height:35px;
