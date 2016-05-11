@@ -1,0 +1,128 @@
+/* css文件初始化 */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, 
+form, fieldset, input, textarea, p, blockquote, th, td {
+        margin:0;
+        padding:0;
+}
+table {
+        border-collapse:collapse;
+        border-spacing:0;
+}
+fieldset, img {
+        border:0;
+}
+address, caption, cite, code, dfn, em, strong, th, var {
+        font-style:normal;
+        font-weight:normal;
+}
+ol, ul {
+        list-style:none;
+}
+caption, th {
+        text-align:left;
+}
+h1, h2, h3, h4, h5, h6 {
+        font-size:100%;
+        font-weight:normal;
+}
+q:before, q:after {
+        content:'';
+}
+abbr, acronym {
+        border:0;
+}
+/* 本任务css相关代码 */
+body{
+        font-family:"Microsoft Yahei";
+}
+section{
+        margin:20px;
+}
+thead th{
+        background-color:#000;
+        color:#fff;
+}
+table td,th{
+        border-left:2px solid #fff;
+        border-right:2px solid #fff;
+}
+tbody tr:nth-child(-n+3) td{
+        color:red;
+}
+tbody tr:nth-child(even) td{
+        background-color:#ccc;
+}
+form input{
+        width:100px;
+        border:2px solid #ddd;
+        transition:border,width 0.5s ease;
+}
+form input:focus{
+        width:200px;
+        border:2px solid cornflowerblue;
+}
+.banner{
+        position:relative;
+        width:300px;
+        overflow:hidden;
+}
+.banner-content{
+        width:300%;
+        height:100%;
+        position:relative;
+        left:0;
+        transition:left 0.5s;
+        font-size: 0;
+        word-spacing: 0;
+        letter-spacing: 0;
+}
+.banner-content li{
+        display:inline-block;
+        width:300px;
+        height:200px;
+}
+#img1{
+        background-color:#6223e2;
+}
+#img2{
+        background-color:#6dff00;
+}
+#img3{
+        background-color:#ff0033;
+}
+.btns{
+        position:absolute;
+        right:0;
+        bottom:0;
+        z-index:100;
+}
+.btns a{
+        text-decoration:none;
+        display:inline-block;
+        width:30px;
+        height:30px;
+        font-size:18px;
+        text-align:center;
+        background-color:rgba(205, 205, 205, 0.7);
+        color:#fff;
+}
+.btns a:hover{
+        background-color:#acc4d2;
+}
+#i1:target~.banner-content{
+        left:0;
+}
+#i2:target~.banner-content{
+        left:-100%;
+}
+#i3:target~.banner-content{
+        left:-200%;
+}
+/* @-webkit-keyframes sider-init{
+        0%{
+                left:0;
+        }
+        100%{
+                left:-100%;
+        }
+} */

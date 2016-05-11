@@ -1,0 +1,42 @@
+body, div, ul, li, input, p, textarea ,header{
+        margin:0;
+        padding:0;
+}
+ol, ul {
+        list-style:none;
+}
+header{
+        width:80%;
+        margin:30px auto;
+        font-family:"微软雅黑";
+        font-size:25px;
+        color:#059aee;
+        text-align:center;
+}
+section{
+        width:80%;
+        margin:0 auto;
+        height:500px;
+        border:5px solid #34acef;
+        border-radius:10px;
+}
+form{
+        width:50%;
+        margin:30px auto 20px;
+        height:100px;
+}
+#my_array{
+        width:90%;
+        margin:10px auto;
+}
+#my_array li{
+        float:left;
+        padding:10px 10px;
+        margin:5px 10px;
+        background-color:#367bf6;
+        font-size:15px;
+        font-weight:bold;
+        border:1px solid #367bf6;
+        border-radius:10px;
+        cursor:pointer;
+}
