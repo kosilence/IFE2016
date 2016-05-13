@@ -45,16 +45,15 @@ function checkKey(keyCode){
 // 检查去重函数
 function cleanRepeat(arr){
         var len = arr.length;
+        var re = [arr[0]];
         if(len>1){
-                for(var i=0;i<len-1;i++){
-                        if(arr[i] == arr[len-1])
-                        {
-                                arr.pop();
-                                return arr;
+                for(var i=1;i<len;i++){
+                        if(re.indexOf(arr[i])<0){
+                                re.push(arr[i]);
                         }
                 }
         }
-        return arr;
+        return re;
 }
 // 处理新插入的元素，分割为数组元素
 function getArray(e){
@@ -83,11 +82,12 @@ function getHobby(){
                         return false;
                 }
         });
-        
         my_list = my_list.concat(arrWord);
+        my_list = cleanRepeat(my_list);
         if(my_list.length > 10){
                 my_list = my_list.slice(-10);
         }
+        $("textarea").value = null;
         displayHobby();
         return false;
 }
