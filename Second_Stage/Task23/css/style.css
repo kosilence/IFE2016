@@ -1,0 +1,85 @@
+body, div ,header ,p ,button ,input {
+        margin:0;
+        padding:0;
+}
+body{
+        font-family:"微软雅黑";
+}
+header{
+        width:80%;
+        margin:30px auto;
+        font-size:25px;
+        color:#059aee;
+        text-align:center;
+}
+section{
+        width:95%;
+        margin:0 auto;
+        min-height:500px;
+        border:5px solid #34acef;
+        border-radius:10px;
+        overflow:auto;
+}
+section p{
+        display:inline-block;
+        position:relative;
+        top:2px;
+        left:3px;
+}
+.child-3 p,.child-2 p{
+        margin-right:13px;
+}
+.root{
+        display:flex;
+        width:98%;
+        height:200px;
+        margin:30px auto 0;
+        border:2px solid #850083;
+        border-radius:10px;
+        background-color:#fff;
+        padding-right:5px;
+}
+.child-1{
+        height:150px;
+        display:flex;
+        margin:auto;
+        border:2px solid #850083;
+        border-radius:10px;
+        background-color:#fff;
+        padding-right:5px;
+}
+.child-2{
+        height:100px;
+        display:flex;
+        margin:auto;
+        border:2px solid #850083;
+        border-radius:10px;
+        background-color:#fff;
+        padding-right:5px;
+}
+.child-3{
+        height:50px;
+        margin:auto;
+        border:2px solid #850083;
+        border-radius:10px;
+        background-color:#fff;
+}
+.form{
+        width:60%;
+        height:100px;
+        display:flex;
+        margin:40px auto;
+}
+.form button{
+        width:100px;
+        height:40px;
+        margin:auto;
+        border:1px solid #850083;
+        border-radius:10px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        cursor:pointer;
+}
+.form input{
+        height:30px;
+        margin:auto;
+}
