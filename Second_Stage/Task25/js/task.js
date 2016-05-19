@@ -34,6 +34,7 @@ function DFSearch(node){
 }
 //需筛出优化遍历中的<p>标签节点
 function removeP(){
+    var len = divOrder.length;
     for(var i=0;i<len;i++){
         if (divOrder[i].nodeName == "P"){
             Pvalue.push(divOrder[i]);
