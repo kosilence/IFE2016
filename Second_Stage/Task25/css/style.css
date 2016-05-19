@@ -1,0 +1,80 @@
+body, div ,header ,p ,button ,input {
+        margin:0;
+        padding:0;
+}
+body{
+        font-family:"微软雅黑";
+}
+header{
+        width:80%;
+        margin:10px auto;
+        font-size:25px;
+        color:#059aee;
+        text-align:center;
+}
+section{
+        width:330px;
+        margin:0 auto;
+        min-height:600px;
+        border:5px solid #34acef;
+        border-radius:10px;
+}
+.form{
+        width:90%;
+        height:30px;
+        display:flex;
+        margin:20px auto;
+}
+.form button{
+        width:50px;
+        height:25px;
+        margin:auto;
+        border:1px solid #850083;
+        border-radius:5px;
+        box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.2);
+        cursor:pointer;
+}
+.form input{
+        height:25px;
+        margin:auto;
+}
+.root{
+        width:80%;
+        margin:10px auto 0;
+}
+.root p{
+        position:relative;
+        display:inline-block;
+        width:150px;
+        border:1px solid #850083;
+        border-radius:5px;
+        margin-bottom:3px;
+        padding:2px 0 2px 5px;
+        background-color:#deebf2;
+        cursor:pointer;
+}
+.root .symbol{
+        position:absolute;
+        right:-50px;
+        bottom:1px;
+        display:none;
+}
+.root .symbol span{
+        width:20px;
+        height:20px;
+        font-size:18px;
+        font-weight:bold;
+        font-family:"黑体";
+        display:inline-block;
+        cursor:pointer;
+        border:1px solid #850083;
+        border-radius:3px;
+        text-align:center;
+        margin:1px;
+        background-color:#fff;
+}
+.child{
+        margin-left:30px;
+        display:block;
+}
+
