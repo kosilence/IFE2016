@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>任务三十五：听指令的小方块（三）</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+        <header>任务三十五：听指令的小方块（三）</header>
+        <section>
+                <div id="map"><span id="active"></span></div>
+        	<div id="form">
+                        <p id="explain"> 
+                                GO n       : 向当前方向前进n格<br>
+                                TUN LEF n  : 向左旋转n次<br>
+                                TUN RIG n  : 向右旋转n次<br>
+                                TUN BAC n  : 向后旋转n次<br>
+                                TRA LEF n  : 向左平移n格，方向不变<br>
+                                TRA TOP n  : 向上平移n格，方向不变<br>
+                                TRA RIG n  : 向右平移n格，方向不变<br>
+                                TRA BOT n  : 向下平移n格，方向不变<br>
+                                MOV LEF n  : 转左移动n格<br>
+                                MOV TOP n  : 转上移动n格<br>
+                                MOV RIG n  : 转右移动n格<br>
+                                MOV BOT n  : 转下移动n格<br>
+                                (注: n省略默认为1/指令错误跳过该行执行)</p>
+                        <ol id="tip"><li>1</li></ol>
+        		<textarea rows="6" cols="25" id="input"></textarea>
+                        <button>执行</button>
+                        <button>刷新</button>
+        	</div>
+        </section>
+        <script src="task.js"></script>
+</body>
+</html>
