@@ -68,7 +68,7 @@ function TUN(o){
                 case "BAC":
                         angle = angle + 18;
                         active.style.transform = "rotate(" + angle*10 + "deg)";
-                        head = 3 - head;
+                        head = (head < 2) ? (head+2):(head-2);
                         break;
         }
 }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+        <meta charset="UTF-8">
+        <title>听指令的小方块</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+        <section>
+                <ol id="colSite"></ol>
+                <ol id="rowSite"></ol>
+                <div id="map"><span id="active"></span></div>
+        	<div id="form">
+                        <p id="header">听指令的小方块</p>
+                        <p id="explain">
+                                操作说明:<br>
+                                ↑&nbsp &nbsp  MOV TOP n  : 转上移动n格<br>
+                                ↓&nbsp &nbsp  MOV BOT n  : 转下移动n格<br>
+                                ←&nbsp &nbsp  MOV LEF n  : 转左移动n格<br>
+                                →&nbsp &nbsp  MOV RIG n  : 转右移动n格<br>
+                                Shift + ↑&nbsp      GO n       : 向当前方向前进n格<br>
+                                Shift + ↓&nbsp      TUN BAC n  : 向后旋转n次<br>
+                                Shift + ←&nbsp      TUN LEF n  : 向左旋转n次<br>
+                                Shift + →&nbsp      TUN RIG n  : 向右旋转n次<br>
+                                Ctrl&nbsp + ↑&nbsp  TRA LEF n  : 向上平移n格，方向不变<br>
+                                Ctrl&nbsp + ↓&nbsp  TRA TOP n  : 向下平移n格，方向不变<br>
+                                Ctrl&nbsp + ←&nbsp  TRA RIG n  : 向左平移n格，方向不变<br>
+                                Ctrl&nbsp + →&nbsp  TRA BOT n  : 向右平移n格，方向不变<br>
+                                ~`&nbsp BUILD  : 修建一个墙方格<br>
+                                BRU color  : 粉刷这面墙<br>
+
+                                (注: n省略默认为1/指令错误则跳过该行执行)</p>
+                        <ol id="tip"><li>1</li></ol>
+        		<textarea id="input"></textarea>
+                        <button>执行</button>
+                        <button>清空</button>
+                        <input type="text" id="wallNum">
+                        <button>随机生成n面墙</button>
+        	</div>
+        </section>
+        <script src="task.js"></script>
+</body>
+</html>
