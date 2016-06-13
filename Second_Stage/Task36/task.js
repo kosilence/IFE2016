@@ -22,7 +22,7 @@ var wallArr = [];
 var shiftFlag = false;
 var ctrlFlag = false;
 var order = ["GO","TUN LEF","TUN RIG","TUN BAC","TRA LEF","TRA TOP","TRA RIG",
-                "TRA BOT","MOV LEF","MOV TOP","MOV RIG","MOV BOT","BUILD","BRU"];//指令集
+                "TRA BOT","MOV LEF","MOV TOP","MOV RIG","MOV BOT","BUILD","BRU","MOV TO"];//指令集
 
 
 //初始化方块随机位置函数
@@ -59,22 +59,15 @@ function initDiv(){
         randomSpan();
 }
 //检查前进方向下一个位置是否无墙,如无，go
-function checkWall(nx,ny){
-        var col = nx / WIDTH; //前面的位置
-        var row = ny / HEIGHT; //前面的位置
-        var flag = false;
-        for(var i=0;i<wallArr.length;i++){
-                if(col == wallArr[i][0] && row == wallArr[i][1]){
-                        flag = true;
+function checkInside(arr,c,r){
+        var flag = true;
+        for(var i=0,len=arr.length;i<len;i++){
+                if(c == arr[i][0] && r == arr[i][1]){
+                        flag = false;
                         break;
                 }
         }
-        if(!flag){
-                x = nx;
-                y = ny;
-                active.style.left = x + 'px';
-                active.style.top = y + 'px';
-        }
+        return flag;
 }
 //方块位置行走处理
 function GO(){
@@ -89,7 +82,14 @@ function GO(){
         }else{
                 nx = (nx == 0) ? 0:(nx - WIDTH);
         }
-        checkWall(nx,ny);
+        var col = nx / WIDTH;
+        var row = ny / HEIGHT;
+        if(checkInside(wallArr,col,row)){
+                x = nx;
+                y = ny;
+                active.style.left = x + 'px';
+                active.style.top = y + 'px';
+        }
 }
 //TUN方块朝向转换处理
 function TUN(o){
@@ -129,7 +129,14 @@ function TRA(o){
                         ny = (ny == 570) ? 570:(ny + HEIGHT);
                         break;
         }
-        checkWall(nx,ny);
+        var col = nx / WIDTH;
+        var row = ny / HEIGHT;
+        if(checkInside(wallArr,col,row)){
+                x = nx;
+                y = ny;
+                active.style.left = x + 'px';
+                active.style.top = y + 'px';
+        }
 }
 //MOV方块转向位移指令
 function MOV(o){
@@ -186,19 +193,10 @@ function BUILD(){
                         col = col - 1;
                         break;
         }
-        if(row >= 0 && row <= 19 && col >= 0 && col <= 19){
-                var flag = false;
-                for(var i=0;i<wallArr.length;i++){
-                        if(col == wallArr[i][0] && row == wallArr[i][1]){
-                                flag = true;
-                                break;
-                        }
-                }
-                if(!flag){
-                        map.childNodes[row+1].childNodes[col].className = "wall";
-                        var newWall = [col,row];
-                        wallArr.push(newWall);
-                }
+        if(row >= 0 && row <= 19 && col >= 0 && col <= 19 && checkInside(wallArr,col,row)){
+                map.childNodes[row+1].childNodes[col].className = "wall";
+                var newWall = [col,row];
+                wallArr.push(newWall);
         }else{
                 console.log("can not build a wall");
         }
@@ -221,17 +219,212 @@ function BRU(c){
                         col = col - 1;
                         break;
         }
-        var flag = false;
-        for(var i=0;i<wallArr.length;i++){
-                if(col == wallArr[i][0] && row == wallArr[i][1]){
-                        map.childNodes[row+1].childNodes[col].style.backgroundColor = c;
-                        flag = true;
-                        break;
-                }
-        }
-        if(!flag){
+        if(!checkInside(wallArr,col,row)){
+                map.childNodes[row+1].childNodes[col].style.backgroundColor = c;
+        }else{
                 console.log("here is no wall to brush");
         }
+}
+//MOV TO c,r处理函数
+function MOVTO(info){
+        if(info.match(/^\d+\,\d+/)){
+                var end = info.split(",");
+                var pc = parseInt(end[0]);
+                var pr = parseInt(end[1]);
+                var path = findWayTo(pc,pr);
+                followPath(path);
+        }else{
+                console.log("MOV TO col,row 坐标格式错误");
+                return false;
+        }
+}
+//得到路径，表现行走过程
+function followPath(path){
+        var len = path.length;
+        var col = x / WIDTH; //此时方块的列号0-19
+        var row = y / HEIGHT; //此时方块的行号0-19
+        var moveOrder = [];
+        for(var i=0;i<len;i++){
+                var stepOrder = ["",1];
+                if(path[i][0] > col){
+                        stepOrder[0] = "MOV RIG";
+                        moveOrder.push(stepOrder);
+                        col = col + 1;
+                }else if(path[i][0] < col){
+                        stepOrder[0] = "MOV LEF";
+                        moveOrder.push(stepOrder);
+                        col = col - 1;
+                }else if(path[i][1] < row){
+                        stepOrder[0] = "MOV TOP";
+                        moveOrder.push(stepOrder);
+                        row = row - 1;
+                }else if(path[i][1] > row){
+                        stepOrder[0] = "MOV BOT";
+                        moveOrder.push(stepOrder);
+                        row = row + 1;
+                }
+        }
+        doOrder(moveOrder);
+}
+//find way to c,r算法
+function findWayTo(pc,pr){
+        pc = pc - 1;
+        pr = pr - 1;
+        var col = x / WIDTH; //此时方块的列号0-19
+        var row = y / HEIGHT; //此时方块的行号0-19
+        var startPos = [col,row];
+        var endPos = [pc,pr];
+        if(!checkInside(wallArr,col,row)){
+                console.log("目标为墙");
+                return false;
+        }else if(col == pc && row == pr){
+                console.log("目标与起点重叠");
+                return false;
+        }else{
+                // reset函数待定
+                var opens = [];//存放可检索的方块(开启列表)
+                var closes = [];//存放已检索的方块(关闭列表)
+                var cur = null;//当前指针
+                var bFind = true;//是否检索
+                //设置开始点的F、G为0并放入opens列表(F=G+H)
+                startPos.F = 0;
+                startPos.G = 0;
+                startPos.H = 0;
+                //将起点放入closes数组，并设置cur指向起始点
+                closes.push(startPos);
+                cur = startPos;
+                //如果起始点紧邻结束点则不计算路径直接将起始点和结束点放入closes数组
+                if(Math.abs(col - pc) + Math.abs(row - pr) == 1){
+                        endPos.P = startPos;
+                        closes.push(endPos);
+                        bFind = false;
+                }
+                //计算路径
+                while(cur && bFind){
+                        //如果当前元素cur不在closes列表中，则将其放入closes列表中
+                        if(checkInside(closes,cur[0],cur[1])){
+                                closes.push(cur);
+                        }
+                        //然后获取当前点四周点
+                        var rounds = getRounds(cur);
+                        //当四周点不在opens数组中时，设置G\H\F和父级P，并放入opens数组
+                        for(var i=0;i<rounds.length;i++){
+                                if(checkInside(closes,rounds[i][0],rounds[i][1]) && checkInside(opens,rounds[i][0],rounds[i][1])){
+                                        rounds[i].G = cur.G + 1;//只算竖横，每格距离为1
+                                        rounds[i].H = Math.abs(rounds[i][0] - endPos[0]) + Math.abs(rounds[i][1] - endPos[1]);
+                                        rounds[i].F = rounds[i].G + rounds[i].H;
+                                        rounds[i].P = cur;//cur为.P的父指针
+                                        opens.push(rounds[i]);
+                                }
+                        }
+                        if(!opens.length){
+                                cur = null;
+                                opens = [];
+                                closes = [];
+                                break;
+                        }
+                        // //按照F值由小到大将opens数组排序
+                        opens.sort(function(a,b){
+                                return a.F - b.F;
+                        });
+                        var oMinF = opens[0];
+                        var aMinF = [];//存放opens数组中F值最小的元素集合
+                        //循环opens数组，查找F值和cur的F值一样的元素，并压入aMinF数组
+                        //找出和最小F值相同的元素有多少
+                        for(var i=0;i<opens.length;i++){
+                                if(opens[i].F == oMinF.F){
+                                        aMinF.push(opens[i]);
+                                }
+                        }
+                        //如果最小F值有多个元素
+                        if(aMinF.length > 1){
+                                //计算元素与cur的曼哈顿距离
+                                for(var i=0;i<aMinF.length;i++){
+                                        aMinF[i].D = Math.abs(aMinF[i][0] - cur[0]) + Math.abs(aMinF[i][1] - cur[1]);
+                                }
+                                aMinF.sort(function(a,b){
+                                        return a.D - b.D;
+                                });
+                                oMinF = aMinF[0];   
+                        }
+                        //将cur指向D值最小的元素
+                                cur = oMinF;
+                                //将cur压入closes数组
+                                if(checkInside(closes,cur[0],cur[1])){
+                                        closes.push(cur);
+                                }
+                        //将cur从opens数组中删除
+                        for(var i=0;i<opens.length;i++){
+                                if(opens[i] == cur){
+                                        opens.splice(i,1);//找到当前cur删除
+                                        break;
+                                }
+                        }
+                        //找到最后一个点，并将结束点压入closes数组
+                        if(cur.H == 1){
+                                endPos.P = cur;
+                                closes.push(endPos);
+                                cur = null;
+                        }
+                }
+                if(closes.length){
+                        //从结尾开始往前找
+                        var dotCur = closes[closes.length - 1];
+                        var path = [];//存放最终路径
+                        while(dotCur){
+                                path.unshift(dotCur);//将当前点压入path数组头部
+                                dotCur = dotCur.P;//设置当前点指向父级
+                                if(!dotCur.P){
+                                        dotCur = null;
+                                }
+                        }
+                        return path;
+                }else{
+                        console.log("no way move to there");
+                        return false;
+                }
+        }
+}
+//获取当前点四周点
+function getRounds(point){
+        var u = new Array(2);//up
+        var r = new Array(2);//right
+        var d = new Array(2);//down
+        var l = new Array(2);//left
+        var rounds = new Array();
+        //up
+        if(point[1] - 1 >= 0){
+                u[0] = point[0];
+                u[1] = point[1] - 1;
+                if(checkInside(wallArr,u[0],u[1])){
+                        rounds.push(u);
+                }
+        }
+        //right
+        if(point[0] + 1 <= 19){
+                r[0] = point[0] + 1;
+                r[1] = point[1];
+                if(checkInside(wallArr,r[0],r[1])){
+                        rounds.push(r);
+                }
+        }
+        //down
+        if(point[1] + 1 <= 19){
+                d[0] = point[0];
+                d[1] = point[1] + 1;
+                if(checkInside(wallArr,d[0],d[1])){
+                        rounds.push(d);
+                }
+        }
+        //left
+        if(point[0] - 1 >= 0){
+                l[0] = point[0] - 1;
+                l[1] = point[1];
+                if(checkInside(wallArr,l[0],l[1])){
+                        rounds.push(l);
+                }
+        }
+        return rounds;
 }
 //获取input指令，分解处理为命令数组保存
 function resolveInput(){
@@ -303,22 +496,27 @@ function action(str,info){
                 case order[13]://BRU color
                         BRU(info);
                         break;
+                case order[14]://MOV TO c,r
+                        MOVTO(info);
+                        break;
         }
 }
-//获取input指令,并执行
-function getInput(){
-        var inputArr = resolveInput();
-        var len = inputArr.length;
+//指令处理函数
+function doOrder(arr){
+        if(timer){
+                clearInterval(timer);
+        }
+        var len = arr.length;
         var time = 0;
         var i = 0;
         timer = setInterval(function(){
                 if(i < len){
-                        if(inputArr[i][0] == "BRU" || inputArr[i][0] == "MOV TO"){
-                                action(inputArr[i][0],inputArr[i][1]);
+                        if(arr[i][0] == "BRU" || arr[i][0] == "MOV TO"){
+                                action(arr[i][0],arr[i][1]);
                                 time = 0;
                                 i++;
-                        }else if(time < inputArr[i][1]){
-                                action(inputArr[i][0]);
+                        }else if(time < arr[i][1]){
+                                action(arr[i][0]);
                                 time++;
                         }else{
                                 time = 0;
@@ -329,8 +527,17 @@ function getInput(){
                 }
         },200);
 }
+//获取input指令,并执行
+function getInput(){
+        var inputArr = resolveInput();
+        doOrder(inputArr);
+}
 //key按键按下控制方块变动
 function keyDown(e){
+        input.scrollTop = 99999;
+        var inputArr = resolveInput();
+        var len = inputArr.length;
+        renderTip(len);
         var my_key;
         if(window.event){// IE
                 my_key = e.keyCode;
@@ -345,6 +552,25 @@ function keyDown(e){
                 input.value += "BUILD\n";
                 BUILD();
                 return false;
+        }else if(my_key == 13){
+                var flag = false;
+                for(var i=0;i<len;i++){
+                        for(var j=0;j<order.length;j++){
+                                if(inputArr[i][0] == order[j]){
+                                        flag = true;
+                                        break;
+                                }
+                        }
+                        if(!flag){
+                                tip.childNodes[i].style.color = "red";
+                        }else{
+                                tip.childNodes[i].style.color = "#fff";
+                        }
+                        flag = false;
+                }
+                var nowInput = [];
+                nowInput.push(inputArr[len-1]);
+                doOrder(nowInput);
         }
         if(shiftFlag){//按下shift键
                 switch(my_key){
@@ -407,10 +633,6 @@ function keyDown(e){
 }
 //key按键抬起
 function keyUp(e){
-        input.scrollTop = 99999;
-        var inputArr = resolveInput();
-        var len = inputArr.length;
-        renderTip(len);
         var my_key;
         if(window.event){// IE
                 my_key = e.keyCode;
@@ -421,22 +643,6 @@ function keyUp(e){
                 shiftFlag = false;
         }else if(my_key == 17){
                 ctrlFlag = false;
-        }else if(my_key == 13 || my_key == 8){
-                var flag = false;
-                for(var i=0;i<len;i++){
-                        for(var j=0;j<14;j++){
-                                if(inputArr[i][0] == order[j]){
-                                        flag = true;
-                                        break;
-                                }
-                        }
-                        if(!flag){
-                                tip.childNodes[i].style.color = "red";
-                        }else{
-                                tip.childNodes[i].style.color = "#fff";
-                        }
-                        flag = false;
-                }
         }
 }
 //渲染绘制tip指示信息
@@ -448,26 +654,6 @@ function renderTip(l){
                 tip.appendChild(newLi);
         }else if(tipLen > l+1){
                 tip.removeChild(tip.lastChild);
-        }
-}
-//检查输入是否为正确的命令
-function checkInput(){
-        var inputArr = resolveInput();
-        var len = inputArr.length;
-        alert(len);
-        var flag = false;
-        renderTip(len);
-        for(var i=0;i<len;i++){
-                for(var j=0;j<13;j++){
-                        if(inputArr[i][0] == order[j]){
-                                flag = true;
-                                break;
-                        }
-                }
-                if(!flag){
-                        tip.childNodes[i].style.color = "red";
-                }
-                flag = false;
         }
 }
 //tip跟随input滚动
@@ -484,19 +670,15 @@ function refresh(){
 function randomWall(){
         var wallNum = $("#wallNum").value.trim();
         if(wallNum==""){wallNum = 1;}
+        wallNum = parseInt(wallNum);
+        var wallLen = wallArr.length + wallNum;
+        if(wallLen > 400){return false;}
         for(var i=0;i<wallNum;i++){
                 var flag = false;
                 while(!flag){
-                        var inflag = false;
                         var col = Math.floor(Math.random() * 20);
                         var row = Math.floor(Math.random() * 20);
-                        for(var j=0;j<wallArr.length;j++){
-                                if(col == wallArr[j][0] && row == wallArr[j][1]){
-                                        inflag = true;
-                                        break;
-                                }
-                        }
-                        if(!inflag){
+                        if(checkInside(wallArr,col,row)){
                                 map.childNodes[row+1].childNodes[col].className = "wall";
                                 var newWall = [col,row];
                                 wallArr.push(newWall);
