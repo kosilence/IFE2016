@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>任务三十七：UI组件之浮出层</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<header>任务三十七：UI组件之浮出层</header>
+	<section>
+		<ul class="nav">
+			<li><a href="#">登录</a></li>
+			<li><a href="#">注册</a></li>
+		</ul>
+		<div class="mask"></div>
+		<div class="popup" id="sign-in">
+			<p>用户登录</p>
+			<label>用户名：<input type="text"></label>
+			<label>密码：<input type="password"></label>
+			<button type="button">Sign in</button>
+		</div>
+		<div class="popup" id="sign-up">
+			<p>用户注册</p>
+			<label>邮箱：<input type="text"></label>
+			<label>用户名：<input type="text"></label>
+			<label>密码：<input type="password"></label>
+			<button type="button">Sign up</button>
+		</div>
+	</section>
+	<script src="task.js"></script>
+</body>
+</html>
