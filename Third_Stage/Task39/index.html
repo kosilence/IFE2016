@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>任务三十九：UI组件之冻结行列表格</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<header>任务三十九：UI组件之冻结行列表格</header>
+	<section></section>
+	<div class="explain">
+		<p>
+			var table1 = new table( {<br>
+			<span>appendUnder:</span> 'section',<br>
+			<span>data:</span>{<br>
+			<span>thead:</span>["姓名","数学","语文","英语","总分"],<br>
+			<span>tbody:</span>[<br>
+			                	["小明",35,85,45,165],<br>
+			                        ["小红",67,46,88,201],<br>
+			                        ["小雪",99,88,94,281],<br>
+			                        ["小亮",87,95,75,257],<br>
+			                        ["小可",75,66,75,216]]<br>
+			        },<br>
+			        <span>IsEnableSort:</span> [0,1,1,1,1],<br>
+			        <span>IsEnableFreeze:</span> true<br>
+			});<br>
+			table1.init();
+		</p>
+		<p>
+			var table2 = new table( {<br>
+			<span>appendUnder:</span> 'section',<br>
+			<span>data:</span>{<br>
+			<span>thead:</span>["姓名","数学","语文","英语","总分"],<br>
+			<span>tbody:</span>[<br>
+			                	["小明",35,85,45,165],<br>
+			                        ["小红",67,46,88,201],<br>
+			                        ["小雪",99,88,94,281],<br>
+			                        ["小亮",87,95,75,257],<br>
+			                        ["小可",75,66,65,206],<br>
+			                        ["小西",73,76,55,204],<br>
+			                        ["小北",45,68,15,128],<br>
+			                        ["小东",65,69,71,205]]<br>
+			        },<br>
+			        <span>IsEnableSort:</span> [0,1,1,1,1],<br>
+			        <span>IsEnableFreeze:</span> false<br>
+			});<br>
+			table2.init();
+		</p>
+		<p>
+			var table3 = new table( {<br>
+			<span>appendUnder:</span> 'section',<br>
+			<span>data:</span>{<br>
+			<span>thead:</span>["姓名","数学","语文","英语","总分"],<br>
+			<span>tbody:</span>[ <br>
+			                	["小明",35,85,45,165],<br>
+			                        ["小红",67,46,88,201],<br>
+			                        ["小雪",99,88,94,281],<br>
+			                        ["小亮",87,95,75,257],<br>
+			                        ["小可",75,66,65,206],<br>
+			                        ["小西",73,76,55,204],<br>
+			                        ["小北",45,68,15,128],<br>
+			                        ["小东",65,69,71,205],<br>
+			                        ["小明",35,85,45,165],<br>
+			                        ["小红",67,46,88,201],<br>
+			                        ["小雪",99,88,94,281],<br>
+			                        ["小亮",87,95,75,257],<br>
+			                        ["小可",75,66,65,206],<br>
+			                        ["小西",73,76,55,204],<br>
+			                        ["小北",45,68,15,128],<br>
+			                        ["小东",65,69,71,205],<br>
+			                        ["小明",35,85,45,165],<br>
+			                        ["小红",67,46,88,201],<br>
+			                        ["小雪",99,88,94,281],<br>
+			                        ["小亮",87,95,75,257],<br>
+			                        ["小可",75,66,65,206],<br>
+			                        ["小西",73,76,55,204],<br>
+			                        ["小北",45,68,15,128],<br>
+			                        ["小东",65,69,71,205],<br>
+			                        ["小明",35,85,45,165],<br>
+			                        ["小红",67,46,88,201],<br>
+			                        ["小雪",99,88,94,281],<br>
+			                        ["小亮",87,95,75,257],<br>
+			                        ["小可",75,66,65,206],<br>
+			                        ["小西",73,76,55,204],<br>
+			                        ["小北",45,68,15,128],<br>
+			                        ["小东",65,69,71,205]]<br>
+			        },<br>
+			        <span>IsEnableSort:</span> [0,1,1,1,1],<br>
+			        <span>IsEnableFreeze:</span> true<br>
+			});<br>
+			table3.init();
+		</p>
+	</div>
+	<script src="task.js"></script>
+</body>
+</html>

@@ -101,7 +101,6 @@ var signUpPopup = new FloatLayer(func.$("#sign-up"));
 var signIn = func.$a("li")[0];
 var signUp = func.$a("li")[1];
 func.addEvent(signIn, "click", function() {
-
         signInPopup.show();
 });
 func.addEvent(signUp, "click", function() {
@@ -118,4 +117,3 @@ func.addEvent(backDrop, "click", function() {
                 signUpPopup.hide();
         }
 });
-
