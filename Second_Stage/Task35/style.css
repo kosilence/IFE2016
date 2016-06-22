@@ -1,0 +1,99 @@
+body, div ,header ,p ,button ,input ,textarea ,ol ,li{
+        margin:0;
+        padding:0;
+}
+ol{
+        list-style:none;
+}
+body{
+        font-family:"微软雅黑";
+}
+header{
+        width:80%;
+        margin:10px auto;
+        font-size:25px;
+        color:#A35EE7;
+        text-align:center;
+}
+section{
+        width:800px;
+        margin:0 auto;
+        min-height:500px;
+        border:5px solid #A35EE7;
+        border-radius:10px;
+        position: relative;
+}
+#map{
+        width:400px;
+        margin:50px;
+        border:3px solid #83888a;
+        position:relative;
+}
+#map div{
+        width:100%;
+        height:40px;
+        box-sizing:border-box;
+}
+#map div div{
+        width:40px;
+        height:100%;
+        display:inline-block;
+        border:1px solid #ccc;
+}
+#active{
+        position:absolute;
+        left:0;
+        top:0;
+        width:40px;
+        height:40px;
+        display:inline-block;
+        box-sizing:border-box;
+        border-top:8px solid #A35EE7;
+        background-color:#565A69;
+        transition:transform .2s linear,left .2s linear,top .2s linear;
+        transform:rotate(0);
+}
+#form{
+        position: absolute;
+        right: 0;
+        top: 0px;
+        width: 300px;
+        padding-top: 50px;
+}
+#explain{
+        width:100%;
+        height:230px;
+        font-size:15px;
+        color:#565A69;
+        font-family:"黑体";
+}
+#tip{
+        display:inline-block;
+        background-color:#c3c4c5;
+        color:#fff;
+        width:25px;
+        height:150px;
+        text-align:center;
+        border:1px solid #77afb3;
+        overflow:hidden;
+        margin-right:-5px;
+}
+#tip li{
+        cursor:default;
+}
+#input{
+        resize: none;
+        font-size:18px;
+        background-color:#000;
+        color:#5eff00;
+        height:150px;
+}
+button{
+        width:70px;
+        height:30px;
+        margin-left:40px;
+        border:1px solid #850083;
+        border-radius:10px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        cursor:pointer;
+}

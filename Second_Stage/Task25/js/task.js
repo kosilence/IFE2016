@@ -146,9 +146,6 @@ function btn1(){
 function init(){
     $a("button")[0].onclick = btn0;
     $a("button")[1].onclick = btn1;
-    // $a("button")[2].onclick = btn2;
-    // $a("button")[3].onclick = btn3;
-    // $a("button")[4].onclick = btn4;
     divInit();
 }
 window.onload = init;

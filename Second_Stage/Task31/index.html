@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>任务三十一：表单（三）联动</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+        <header>任务三十一：表单（三）联动</header>
+        <section>
+                <form>
+                        <input type="radio" name="choose" id="isStu" checked="true" />
+                        <label for="isStu">在校生</label>
+                        <input type="radio" name="choose" id="notStu" />
+                        <label for="notStu">非在校生</label>
+                        <div class="inSchool">
+                                <label id="tip1">学校</label>
+                                <select name="city" id="city">
+                                        <option value="beijing">北京</option>
+                                        <option value="shanghai">上海</option>
+                                        <option value="guangzhou">广州</option>
+                                </select>
+                                <select name="school" id="school">
+                                        <option>清华大学</option>
+                                        <option>北京大学</option>
+                                        <option>北京师范大学</option>
+                                        <option>中国人民大学</option>
+                                        <option>北京交通大学</option>
+                                        <option>中央财经大学</option>
+                                </select>
+                        </div>
+                        <div class="inCompany">
+                                <label id="tip2">工作单位</label>
+                                <input type="text" id="company" />
+                        </div>
+                        
+                </form>
+        </section>
+        <script src="js/task.js"></script>
+</body>
+</html>

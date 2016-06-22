@@ -1,0 +1,63 @@
+body, div ,header ,p ,button ,input ,form{
+        margin:0;
+        padding:0;
+}
+body{
+        font-family:"黑体";
+}
+header{
+        width:80%;
+        margin:10px auto;
+        font-size:25px;
+        color:#059aee;
+        text-align:center;
+}
+section{
+        width:60%;
+        margin:0 auto;
+        min-height:500px;
+        border:5px solid #34acef;
+        border-radius:10px;
+}
+form{
+        width:80%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        margin:30px auto 0;
+}
+label{
+        font-size:20px;
+}
+input{
+        font-size:18px;
+        width:240px;
+        height:35px;
+        margin:0 20px;
+        border:1px solid #064ebd;
+        border-radius:5px;
+}
+button{
+        font-size:18px;
+        font-weight:bold;
+        width:60px;
+        height:35px;
+        color:#fff;
+        background-color:#064ebd;
+        border:1px solid #064ebd;
+        border-radius:5px;
+}
+.tip{
+        position:relative;
+        left:-10px;
+        width:240px;
+        height:30px;
+        margin:5px auto;
+        color:#a3b2c9;
+}
+.correct{
+        color:#25f936;
+}
+.error{
+        color:#fd2745;
+}

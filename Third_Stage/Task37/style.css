@@ -1,0 +1,88 @@
+body,
+div,
+header,
+p,
+button,
+input,
+textarea,
+ol,
+li
+{
+    margin: 0;
+    padding: 0;
+}
+ul,
+ol
+{
+    list-style: none;
+}
+body
+{
+    font-family: '黑体';
+}
+header{
+    width:300px;
+    margin:10px auto;
+    font-size:20px;
+    color:#a35ee7;
+}
+section
+{
+    position: relative;
+
+    width: 90%;
+    min-height: 980px;
+    margin: 10px auto;
+
+    border: 2px solid #a35ee7;
+    border-radius: 10px;
+}
+.nav{
+    margin-left:20px;
+}
+.nav li{
+    display:inline-block;
+    margin:30px 10px;
+    font-size:18px;
+}
+.popup{
+    position:fixed;
+    top:calc(50% - 100px);
+    left:calc(50% - 150px);
+    width:300px;
+    min-height:200px;
+    border:2px solid #ccc;
+    border-radius:5px;
+    transform:scale(1, 0);
+    transition:transform .3s;
+    background-color:#fff;
+    cursor:auto;
+}
+.popup p{
+    font-size:20px;
+    margin:20px;
+}
+.popup label{
+    display:block;
+    text-align:right;
+    margin-right:30px;
+    margin-top:20px;
+}
+.popup button{
+    width:80%;
+    height:28px;
+    margin:20px auto;
+    margin-left:10%;
+    background-color:#005523;
+    color:#fff;
+    font-size:16px;
+    border:1px solid #005523;
+    border-radius:5px;
+}
+.mask{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    background-color:rgba(232,228,229,0.6);
+}
