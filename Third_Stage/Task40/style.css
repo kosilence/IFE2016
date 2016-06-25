@@ -1,0 +1,86 @@
+/* css文件初始化 */
+body, div, th, td, tbody, ol, ul, li{
+        margin:0;
+        padding:0;
+}
+ol, ul{
+    list-style:none;
+}
+body
+{
+    font-family: '黑体';
+}
+header{
+    width:400px;
+    margin:10px auto;
+    font-size:20px;
+    color:#a35ee7;
+}
+section
+{
+    position: relative;
+
+    width: 90%;
+    min-height: 980px;
+    margin: 10px auto;
+
+    border: 2px solid #a35ee7;
+    border-radius: 10px;
+}
+.cale-tool{
+    width:196px;
+    padding:3px;
+    border:1px solid #ccc;
+    border-radius:4px;
+    /* 设置文本不可选中，优化点击体验 */
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -o-user-select:none;
+    user-select:none;
+}
+.cale-head{
+    height:28px;
+    font-size:16px;
+}
+div.cale-head > span, div.cale-head > div{
+    height:100%;
+    display:inline-block;
+    padding-top:4px;
+    box-sizing:border-box;
+    border:1px solid #ccc;
+    border-radius:5px;
+    text-align:center;
+    cursor:pointer;
+}
+div.cale-head > span{
+    width:30px;
+}
+div.cale-head > div{
+    width:136px;
+}
+.cale-body{
+    font-size:16px;
+}
+.cale-body ol,
+.cale-body ul{
+    height:28px;
+}
+.cale-body-day{
+    width:28px;
+    height:28px;
+    display:inline-block;
+    text-align:center;
+    padding-top:4px;
+    box-sizing:border-box;
+    border:1px solid #fff;
+    border-radius:5px;
+    background-color:#fff;
+}
+.cale-body ul li{
+    cursor:pointer;
+}
+
+.cale-head span:hover,
+.cale-head div:hover{
+    background-color:#eee;
+}
