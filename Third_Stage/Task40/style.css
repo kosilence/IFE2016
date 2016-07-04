@@ -21,15 +21,14 @@ section
     position: relative;
 
     width: 90%;
-    min-height: 980px;
+    min-height: 500px;
     margin: 10px auto;
 
     border: 2px solid #a35ee7;
     border-radius: 10px;
 }
 .cale-tool{
-    margin-top:30px;
-    margin-left:30px;
+    margin: 30px 0 205px 40px;
     position:relative;
     /* 设置文本不可选中，优化点击体验 */
     -webkit-user-select:none;
@@ -40,10 +39,11 @@ section
 .cale-prompt{
     height:25px;
     width:202px;
+    z-index: 100;
     border:1px solid #aaa;
     border-radius:3px;
     color:#555;
-    text-indent:.5em;
+    text-align: center;
     font-size:15px;
     -webkit-box-shadow:1px 1px 10px #ccc;
     -moz-box-shadow:1px 1px 10px #ccc;
@@ -58,9 +58,11 @@ section
     position:absolute;
     top:30px;
     left:0;
+    z-index: 9999;
     display:none;
     width:196px;
     padding:3px;
+    background-color: #fff;
     border:1px solid #aaa;
     border-radius:4px;
     -webkit-box-shadow:1px 1px 10px #ccc;
@@ -124,4 +126,9 @@ div.cale-head > div{
 .cale-head span:hover,
 .cale-head div:hover{
     background-color:#eee;
+}
+.tips{
+    position: absolute;
+    top: 10px;
+    left: 300px;
 }
