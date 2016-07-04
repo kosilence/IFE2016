@@ -42,10 +42,8 @@ var calendar = function(config) {
         this.viewMode = config.viewMode;//初始赋值，0，1，2
         this.Multiselect = config.Multiselect;//日期多选模式配置
 
-        // this.Multiselect.startData = null;
-        // this.Multiselect.endData = null;
-
-        this.selectEle = [];//select元素
+        this.selectEle = null;//select元素
+        this.selectDataArr = [];//选择日期的集合
         this.today = new Date();
         this.selectData = {
                 day: parseInt(this.today.getDate()),
@@ -164,12 +162,12 @@ var calendar = function(config) {
                                         for(var j=0;j<bodyCol;j++) {
                                                 var newLi = document.createElement("li");
                                                 func.addEvent(newLi, "mouseover", function() {
-                                                        if(!self.checkSelectEle(this)){
+                                                        if(!self.checkSelect(this.innerHTML)){
                                                                 this.style.backgroundColor = "#eee";
                                                         }
                                                 });
                                                 func.addEvent(newLi, "mouseout", function() {
-                                                        if(!self.checkSelectEle(this)){
+                                                        if(!self.checkSelect(this.innerHTML)){
                                                                 this.style.backgroundColor = "#fff";
                                                         }
                                                 });
@@ -184,9 +182,15 @@ var calendar = function(config) {
                                                 }else if(x < (thisMonthDay + firstDayWeek + 1)){
                                                         newLi.innerHTML = parseInt(x - firstDayWeek);
                                                         if(self.checkSelect(newLi.innerHTML)){
-                                                                newLi.style.backgroundColor = "#0395e6";
-                                                                newLi.style.color = "#fff";
-                                                                self.selectEle[0] = newLi;
+                                                                var thisData = self.getDataNum(self.currentData.year, self.currentData.month, parseInt(newLi.innerHTML));
+                                                                if(thisData == self.selectDataArr[0] || thisData == self.selectDataArr[self.selectDataArr.length - 1]) {
+                                                                        newLi.style.backgroundColor = "#0395e6";
+                                                                        newLi.style.color = "#fff";
+                                                                        self.selectEle = newLi;
+                                                                }else {
+                                                                        newLi.style.backgroundColor = "#66ccff";
+                                                                        newLi.style.color = "#fff";
+                                                                }
                                                         }
                                                         func.addEvent(newLi, "click", function() {
                                                                 self.selectData.day = parseInt(this.innerHTML);
@@ -195,15 +199,19 @@ var calendar = function(config) {
 
                                                                 if(self.Multiselect.available) {//多选日期模式
                                                                         self.getMultiselectData(this);
+                                                                        self.mainEle.removeChild(self.mainEle.lastChild);
+                                                                        self.mainEle.appendChild(self.renderBody(self.viewMode));
                                                                 }else {//非多选日期模式
-
-                                                                        if(self.selectEle[0]){
-                                                                                self.selectEle[0].style.backgroundColor = "#fff";
-                                                                                self.selectEle[0].style.color = "#000";
+                                                                        if(self.selectEle){
+                                                                                self.selectEle.style.backgroundColor = "#fff";
+                                                                                self.selectEle.style.color = "#000";
                                                                         }
+
                                                                         this.style.backgroundColor = "#0395e6";
                                                                         this.style.color = "#fff";
-                                                                        self.selectEle[0] = this;
+                                                                        self.Multiselect.startData = self.cloneObject(self.selectData);
+                                                                        self.selectDataArr[0] = self.getDataNum(self.selectData.year, self.selectData.month, self.selectData.day);
+                                                                        self.selectEle = this;
 
                                                                         self.promptEle.value = self.displayPrompt(self.selectData);
                                                                         self.mainEle.style.display = "none";
@@ -232,19 +240,24 @@ var calendar = function(config) {
                                                 var newLi = document.createElement("li");
                                                 var x = (i * 4) + j;//0-11
                                                 newLi.innerHTML = self.DataGroup.monthsShort[x];
-                                                if(self.checkSelect(x)){
-                                                        newLi.style.backgroundColor = "#0395e6";
-                                                        newLi.style.color = "#fff";
-                                                        self.selectEle[0] = newLi;
+                                                if(self.checkSelect(newLi.innerHTML)){
+                                                        if(x == self.selectData.month || x == self.Multiselect.startData.month || x == self.Multiselect.endData.month) {
+                                                                newLi.style.backgroundColor = "#0395e6";
+                                                                newLi.style.color = "#fff";
+                                                                self.selectEle = newLi;
+                                                        }else {
+                                                                newLi.style.backgroundColor = "#66ccff";
+                                                                newLi.style.color = "#fff";
+                                                        }
                                                 }
                                                 newLi.className = "cale-body-monthyear";
                                                 func.addEvent(newLi, "mouseover", function() {
-                                                        if(!self.checkSelectEle(this)){
+                                                        if(!self.checkSelect(this.innerHTML)){
                                                                 this.style.backgroundColor = "#eee";
                                                         }
                                                 });
                                                 func.addEvent(newLi, "mouseout", function() {
-                                                        if(!self.checkSelectEle(this)){
+                                                        if(!self.checkSelect(this.innerHTML)){
                                                                 this.style.backgroundColor = "#fff";
                                                         }
                                                 });
@@ -274,18 +287,24 @@ var calendar = function(config) {
                                                 var x = (i * 4) + j;//0-11
                                                 newLi.innerHTML = (Math.floor(self.currentData.year / 10) * 10 + x - 1);
                                                 if(self.checkSelect(newLi.innerHTML)){
-                                                        newLi.style.backgroundColor = "#0395e6";
-                                                        newLi.style.color = "#fff";
-                                                        self.selectEle[0] = newLi;
+                                                        if(newLi.innerHTML == self.selectData.year || newLi.innerHTML == self.Multiselect.startData.year || newLi.innerHTML == self.Multiselect.endData.year) {
+                                                                newLi.style.backgroundColor = "#0395e6";
+                                                                newLi.style.color = "#fff";
+                                                                self.selectEle = newLi;
+
+                                                        }else {
+                                                                newLi.style.backgroundColor = "#66ccff";
+                                                                newLi.style.color = "#fff";
+                                                        }
                                                 }
                                                 newLi.className = "cale-body-monthyear";
                                                 func.addEvent(newLi, "mouseover", function() {
-                                                        if(!self.checkSelectEle(this)){
+                                                        if(!self.checkSelect(this.innerHTML)){
                                                                 this.style.backgroundColor = "#eee";
                                                         }
                                                 });
                                                 func.addEvent(newLi, "mouseout", function() {
-                                                        if(!self.checkSelectEle(this)){
+                                                        if(!self.checkSelect(this.innerHTML)){
                                                                 this.style.backgroundColor = "#fff";
                                                         }
                                                 });
@@ -354,29 +373,32 @@ var calendar = function(config) {
                 };
                 calendar.prototype.checkSelect = function(data) {
                         if(this.viewMode === 0) {
-                                if((this.selectData.day == data) && (this.selectData.month == this.currentData.month) && (this.selectData.year == this.currentData.year)) {
-                                        return true;
+                                for(var i=0;i<this.selectDataArr.length;i++) {
+                                        var eleData = this.getDataNum(this.currentData.year, this.currentData.month, parseInt(data));
+                                        if(eleData == this.selectDataArr[i]) {
+                                                return true;
+                                        }
                                 }
                         }else if(this.viewMode === 1){
-                                if((this.selectData.month == data) && (this.selectData.year == this.currentData.year)) {
-                                        return true;
+                                if(!this.Multiselect.startData) {
+                                        this.Multiselect.startData = this.cloneObject(this.selectData);
+                                }
+                                for(var j=0;j<12;j++) {
+                                        if(data == this.DataGroup.monthsShort[j]){
+                                                if((this.selectData.month == j) && (this.selectData.year == this.currentData.year) ||((this.Multiselect.startData.month == j) && (this.Multiselect.startData.year == this.currentData.year))) {
+                                                        return true;
+                                                }
+                                        }
                                 }
                         }else if(this.viewMode === 2) {
-                                if(this.selectData.year == data) {
+                                if(!this.Multiselect.startData) {
+                                        this.Multiselect.startData = this.cloneObject(this.selectData);
+                                }
+                                if(this.selectData.year == data || this.Multiselect.startData.year == data) {
                                         return true;
                                 }
                         }
                         return false;
-                };
-                calendar.prototype.checkSelectEle = function(ele) {
-                        var selectFlag = false;
-                        for(var i=0;i<this.selectEle.length;i++) {
-                                if(this.selectEle[i] == ele){
-                                        selectFlag = true;
-                                        break;
-                                }
-                        }
-                        return selectFlag;
                 };
                 calendar.prototype.displayPrompt = function(data) {
                         var promptDay = (data.day < 10) ? ("0" + data.day) : data.day;
@@ -395,39 +417,38 @@ var calendar = function(config) {
                                 this.Multiselect.startData = this.cloneObject(this.selectData);
                                 this.Multiselect.clickFlag = true;
 
-                                if(this.selectEle[0]) {
-                                        this.selectEle[0].style.backgroundColor = "#fff";
-                                        this.selectEle[0].style.color = "#000";
-                                        if(this.selectEle[1]) {
-                                                this.selectEle[1].style.backgroundColor = "#fff";
-                                                this.selectEle[1].style.color = "#000";
-                                        }
-                                }
-                                ele.style.backgroundColor = "#0395e6";
-                                ele.style.color = "#fff";
-                                this.selectEle[0] = ele;
+                                this.selectDataArr = [];
+                                this.selectDataArr.push(this.getDataNum(this.Multiselect.startData.year, this.Multiselect.startData.month, this.Multiselect.startData.day));
+
+                                this.selectEle = ele;
 
                                 this.promptEle.value = this.displayPrompt(this.Multiselect.startData);
-                        }else {
-                                if(this.selectData.year < this.Multiselect.startData.year) {
-                                        this.Multiselect.endData = this.cloneObject(this.Multiselect.startData);
-                                        this.Multiselect.startData = this.cloneObject(this.selectData);
-                                }else if(this.selectData.year == this.Multiselect.startData.year && this.selectData.month < this.Multiselect.startData.month) {
-                                        this.Multiselect.endData = this.cloneObject(this.Multiselect.startData);
-                                        this.Multiselect.startData = this.cloneObject(this.selectData);
-                                }else if(this.selectData.year == this.Multiselect.startData.year && this.selectData.month == this.Multiselect.startData.month && this.selectData.day < this.Multiselect.startData.day) {
-                                        this.Multiselect.endData = this.cloneObject(this.Multiselect.startData);
-                                        this.Multiselect.startData = this.cloneObject(this.selectData);
+                        }else {//第二次点击选择日期
+                                var sData = new Date(this.Multiselect.startData.year, this.Multiselect.startData.month, this.Multiselect.startData.day);
+                                var eData = new Date(this.selectData.year, this.selectData.month, this.selectData.day);
+                                var daysNum = parseInt(Math.abs(sData - eData) / 1000 / 60 / 60 / 24);
+                               
+                                if(daysNum >= this.Multiselect.minNumDays && daysNum <= this.Multiselect.maxNumDays) {
+                                       if(sData > eData) {
+                                                for(var i=1;i<daysNum + 1;i++) {
+                                                        this.selectDataArr.push(this.selectDataArr[0] - i);
+                                                }
+                                                this.Multiselect.endData = this.cloneObject(this.Multiselect.startData);
+                                                this.Multiselect.startData = this.cloneObject(this.selectData);
+                                        }else {
+                                                for(var i=1;i<daysNum+1;i++) {
+                                                        this.selectDataArr.push(this.selectDataArr[0] + i);
+                                                }
+                                                this.Multiselect.endData = this.cloneObject(this.selectData);
+                                        }
                                 }else {
-                                        this.Multiselect.endData = this.cloneObject(this.selectData);
+                                        alert("选择的日期范围不符要求，请重新选择！");
+                                        return false;
                                 }
                                 this.Multiselect.clickFlag = false;
 
-                                if(this.Multiselect.endData)
-                                ele.style.backgroundColor = "#0395e6";
-                                ele.style.color = "#fff";
-                                this.selectEle[1] = ele;
-
+                                this.selectEle = ele;
+                                
                                 this.promptEle.value = this.displayPrompt(this.Multiselect.startData) + "  ~  " + this.displayPrompt(this.Multiselect.endData);
                                 // this.mainEle.style.display = "none";
                                 // this.display = false;
@@ -446,10 +467,9 @@ var calendar = function(config) {
                         }
                         return newObj;
                 };
-                calendar.prototype.getApartDays = function(start, end) {
-                        var sData = new Date(start.year, start.month, start.day);
-                        var eData = new Date(end.year, end.month, end.day);
-                        return parseInt(Math.abs(sData - eData) / 1000 / 60 / 60 / 24);
+                calendar.prototype.getDataNum = function(year, month, day) {
+                        var newData = new Date(year, month, day);
+                        return parseInt(newData / 1000 / 60 / 60 / 24);
                 };
                 calendar.prototype.init = function() {
                         var caleTool = document.createElement("div");
@@ -473,8 +493,19 @@ var calendar1 = new calendar({
         viewMode: 0,
         Multiselect: {
                 available: true,
-                minNumDays: 7,
-                maxNumDays: 14
+                minNumDays: 3,
+                maxNumDays: 100
         }
 });
 calendar1.init();
+
+var calendar2 = new calendar({
+        appendUnder: "section",
+        format: "y-m-d",
+        display: false,
+        viewMode: 1,
+        Multiselect: {
+                available: false,
+        }
+});
+calendar2.init();
