@@ -7,7 +7,32 @@
 </head>
 <body>
 	<header>任务四十：UI组件之日历组件（一）</header>
-	<section></section>
+	<section>
+		<div class="tips">
+			<p>var calendar1 = new calendar({<br>
+			        appendUnder: "section",//指定父节点<br>
+			        format: "d/m/y",//指定显示格式<br>
+			        display: false,//初始是否显示ture || false<br>
+			        viewMode: 0,//初始赋值，0，1，2（日，月，年）<br>
+			        Multiselect: {//日期多选模式配置<br>
+			                available: true,//日期多选可用<br>
+			                minNumDays: 3,<br>
+			                maxNumDays: 100<br>
+			        }<br>
+			});<br>
+			calendar1.init();</p>
+			<p>var calendar2 = new calendar({<br>
+			        appendUnder: "section",<br>
+			        format: "y-m-d",<br>
+			        display: false,<br>
+			        viewMode: 1,<br>
+			        Multiselect: {<br>
+			                available: false,<br>
+			        }<br>
+			});<br>
+			calendar2.init();</p>
+		</div>
+	</section>
 	<script src="task.js"></script>
 </body>
 </html>
